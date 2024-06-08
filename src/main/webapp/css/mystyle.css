@@ -1,0 +1,50 @@
+ body{
+              
+                background-size: cover;
+                background-attachment: fixed;
+}
+
+
+.banner-background{
+   clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
+  background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+}
+
+.navbar .navbar-brand{
+	color: rgba(3,22,65,1);
+}
+.navbar .navbar-brand:hover{
+	color:black;
+}
+
+
+.navbar .navbar-nav .navbar-item .nav-link{
+	color:blue;
+}
+.navbar ul li  a:hover{
+	color:black;
+}
+
+.navbar from buttom{
+	outline:none; border:1px solid purple; background:transparent;
+}
+
+.card-header{
+	background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+}
+
+.btn{
+	background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+	border:1px solid white;
+	color:wheat;
+	outline:none;
+}
+.btn:hover{
+	background-color:transparent;
+	color:black;
+	outline:none;
+}
+
+.card{
+	
+}

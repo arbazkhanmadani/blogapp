@@ -1,0 +1,48 @@
+@charset "ISO-8859-1"; body{
+              	background-image:url('img/bgp2.jpg');
+                background-size: cover;
+                background-attachment: fixed;
+                 background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+ 
+}
+
+
+.banner-background{
+   clip-path: polygon(30% 0%, 70% 0%, 100% 0, 100% 91%, 63% 100%, 22% 91%, 0 99%, 0 0);
+   background-image: linear-gradient(-200deg,purple,violet);
+}
+
+.navbar{
+	background-color:white;
+	
+}
+.navbar .navbar-brand{
+	color:purple;
+}
+.navbar .navbar-brand:hover{
+	color:black;
+}
+
+
+.navbar .navbar-nav .navbar-item .nav-link{
+	color:purple;
+}
+.navbar .navbar-nav .navbar-item .nav-link:hover{
+	color:black;
+}
+
+
+
+
+.btn{
+	background-color:black;
+	border:1px solid purple;
+	color:wheat;
+	outline:none;
+}
+.btn:hover{
+	background-color:transparent;
+	color:purple;
+	outline:none;
+}
+

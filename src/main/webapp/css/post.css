@@ -1,0 +1,51 @@
+body{
+                background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+	
+}
+.navbar{
+	background-color:white;
+}
+
+.navbar .navbar-brand{
+	color: rgba(3,22,65,1);
+}
+.navbar .navbar-brand:hover{
+	color:black;
+}
+
+
+.navbar .navbar-nav .navbar-item .nav-link{
+	color:black;
+}
+.navbar ul li  a:hover{
+	color:black;
+}
+
+.post-title{
+                font-weight: 100;
+                font-size: 30px;
+            }
+            .post-content{
+                font-weight: 100;
+                font-size: 25px;
+
+            }
+            .post-date{
+                font-style: italic;
+                font-weight: bold;
+            }
+            .post-user-info{
+                font-size: 20px;
+
+            }
+
+
+            .row-user{
+                border:1px solid #e2e2e2;
+                padding-top: 15px;
+            }
+
+            body{
+                background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+               
+            }

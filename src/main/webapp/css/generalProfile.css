@@ -1,0 +1,63 @@
+body {
+   background-image: radial-gradient( circle farthest-corner at 74.2% 50.9%,  rgba(14,72,222,1) 5.2%, rgba(3,22,65,1) 75.3% );
+
+}
+
+
+
+
+.rounded-circle:hover {
+   filter:drop-shadow(1px 1px 10px black);
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+.rounded-circle{
+	border:1px solid black;
+	width:80%;
+	
+}
+.font-weight-bold{
+	font-style:italic;
+	font-size:5vmin;
+	color:blue;
+}
+.form-control{
+	font-style:italic;
+	font-weight:bold;
+	font-size:2.5vmin;
+	color:black;
+}
+label{
+	font-size:2vmin;
+	
+}
+
+.text-right{
+	font-size:5vmin;
+	color:blue;
+}
