@@ -29,7 +29,7 @@
                             <div class="card-header text-white text-center">
                                 <span class="fa fa-user-plus fa-3x"></span>
                                 <br>
-                                <p>Login here</p>
+                                <p>Reset Password</p>
                             </div>
 
                             <%
@@ -47,22 +47,30 @@
 
                             %>
 
-
-
+							<%
+							String err = request.getParameter("err");
+							 if (err != null) {
+							%>
+							 <div class="alert-danger" role="alert">
+                                <%= err%>
+                            </div>	
+                            <%} %>
                             <div class="card-body">
-                                <form action="LoginServlet" method="post">
+                                <form action="ResetServlet" method="post">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
                                         <input name="email" required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
+                                        <label for="exampleInputPassword1">New Password</label>
                                         <input name="password" required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                     </div>
- 									<div class="form-group">
-                                    	<a href="password_reset.jsp">forgot password?</a>
-									</div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Confirm Password</label>
+                                        <input name="conf_password" required type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+ 									
                                     <div class="container text-center">
                                         <button type="submit" class="btn">Submit</button>
                                     </div>

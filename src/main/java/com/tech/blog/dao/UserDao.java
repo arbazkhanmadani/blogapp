@@ -131,4 +131,25 @@ public class UserDao {
 
         return user;
     }
+    
+
+    public boolean updatePasswordUserByEmail(String email, String pass) {
+
+        boolean f = false;
+        try {
+
+            String query = "update user set password=? where email=?";
+            PreparedStatement p = con.prepareStatement(query);
+            p.setString(1, pass);
+            p.setString(2, email);
+
+            p.executeUpdate();
+            f = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
 }

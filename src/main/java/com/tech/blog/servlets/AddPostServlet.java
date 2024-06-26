@@ -48,14 +48,14 @@ public class AddPostServlet extends HttpServlet {
 //            getting currentuser id
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("currentUser");
-            System.out.println(request.getRealPath("blogpics")+"==============path");
+            System.out.println(request.getRealPath("pics")+"==============path");
 //            out.println("your post title is " + pTitle);
 //            out.println(part.getSubmittedFileName());
             Post p = new Post(pTitle, pContent, pCode, part.getSubmittedFileName(), null, cid, user.getId());
             PostDao dao = new PostDao(ConnectionProvider.getConnection());
             if (dao.savePost(p)) {
 
-                String path = request.getRealPath("blogpics") +File.separator + part.getSubmittedFileName();
+                String path = request.getRealPath("pics") +File.separator + part.getSubmittedFileName();
                 System.out.println(part.getInputStream()+"=========================Stream");
                 System.out.println(part.getSubmittedFileName()+"===================filename");
                 Helper.saveFile(part.getInputStream(), path);

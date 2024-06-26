@@ -1,7 +1,13 @@
 
 <!-- com.tech.blog.helper.ConnectionProvider -->
 
-
+<%@page import="com.tech.blog.entities.User,com.tech.blog.entities.*"%>
+<%@page import="com.tech.blog.dao.LikeDao"%>
+<%@page import="java.util.*, java.text.DateFormat, java.sql.*"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
+<%@page import="java.sql.*"%>
+<%@page errorPage="error_page.jsp"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*, com.tech.blog.helper.ConnectionProvider" %>
 
@@ -16,9 +22,37 @@
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style><%@ include file='css/mystyle.css'%> </style>
+		<style>
+		
 
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+		
+		</style>
     </head>
     <body>
+
+
 
         <!--navbar-->
         <%@include file="normal_navbar.jsp" %>
@@ -55,7 +89,7 @@
 
         <!--//cards-->
 
-        <div class="container">
+       <!--  <div class="container">
 
             <div class="row mb-2">
 
@@ -133,7 +167,74 @@
             </div>
 
         </div>
+ -->
 
+
+
+<%     
+ 			Connection con = ConnectionProvider.getConnection();
+ 			String q ="SELECT pPic, pid from posts limit 10";
+ 			PreparedStatement ps = con.prepareStatement(q);	
+ 			ResultSet rs = ps.executeQuery();
+            
+            
+            String pic;
+            int pid;
+            Map<Integer, String> al = new TreeMap<Integer, String>();
+             while(rs.next()){
+            	
+            	pic = rs.getString("pPic");
+            	pid = rs.getInt("pid");
+            	al.put(pid,pic.toString());
+            	System.out.println(pic);
+            	
+            }    
+            
+    %>
+
+<div class="rightcolumn container">
+   
+    
+    <div class="card" style="color:black;background:white;">
+      <h3>Popular Post</h3>
+      
+      <%for(Map.Entry<Integer, String> post: al.entrySet()){ %>
+      <div class="fakeimg mb-1" style="background:#fff;display:flex;justify-content:space-between;border-bottom:1px solid black;">
+      	<a href="">
+      		<img src="pics/<%=post.getValue() %>" width="50px"/>
+      	</a>
+      	<%
+   			User u = (User) session.getAttribute("currentUser");
+    		if (u!= null) {
+    		%>
+    		<a href="show_blog_page.jsp?post_id=<%=post.getKey() %>" style="color:blue;">read now...</a>
+            
+       		<%}else{%>
+       		<a href="login_page.jsp" style="color:blue;">login to read the post</a>
+            
+       		<%} %>
+      </div>
+      <%} %>
+      <br>
+      
+    </div>
+    
+     <div class="card">
+      <h2 align="center">About Me</h2>
+      <div class="fakeimg" style="width:30%;height:20%;"><img src="pics/pp.png" style="width:100%;"/></div>
+      <h3>Hyy, Im Arbaz Khan</h3>
+      <p style="font-size:1.5em;">I fell in love with programming and I have at least learnt something, I think… 🤷‍♂️<br/>
+			I have a passion for DSA and Problem Solving
+			I am proficint in classics like Java, Javascript and Python.<br/>
+
+			My field of Interest's are building latest Web applications and also in domain related to
+			Data Analytics.<br/><br/>
+
+			Whenever possible, I also apply my passion for developing products with Node.js, ExpressJs and java Full Stack and like to put my hands in Latest Technologies.  I also like React.js and Frontend Technologies</p>
+    </div>
+    
+  
+  </div>
 
 
         <!--javascripts-->

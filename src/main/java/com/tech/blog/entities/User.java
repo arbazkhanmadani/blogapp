@@ -4,7 +4,13 @@ import java.sql.*;
 
 public class User {
 
-    private int id;
+    @Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
+				+ gender + ", dateTime=" + dateTime + ", about=" + about + ", profile=" + profile + "]";
+	}
+
+	private int id;
     private String name;
     private String email;
     private String password;

@@ -9,17 +9,19 @@ import com.tech.blog.dao.UserDao;
 import com.tech.blog.entities.Message;
 import com.tech.blog.entities.User;
 import com.tech.blog.helper.ConnectionProvider;
-import com.tech.blog.helper.EmailHelper;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginServlet extends HttpServlet {
+@WebServlet("/ResetServlet")
+public class ResetServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,9 +32,10 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        
+    	response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -45,32 +48,37 @@ public class LoginServlet extends HttpServlet {
 //            fetch username and password from request
             String userEmail = request.getParameter("email");
             String userPassword = request.getParameter("password");
+            String ConfPassword = request.getParameter("conf_password");
+            
+            if(userPassword.equals(ConfPassword)) {
+            	
+            	UserDao dao = new UserDao(ConnectionProvider.getConnection());
+            	boolean f = dao.updatePasswordUserByEmail(userEmail, userPassword);
+                User u = dao.getUserByEmailAndPassword(userEmail, userPassword);
 
-            UserDao dao = new UserDao(ConnectionProvider.getConnection());
-
-            User u = dao.getUserByEmailAndPassword(userEmail, userPassword);
-
-            if (u == null) {
+            	if (f == false) {
                 //login.................
 //                error///
 //                out.println("Invalid Details..try again");
                 //Message msg = new Message("Invalid Details ! try with another", "error", "alert-danger");
-                HttpSession s = request.getSession();
-                s.setAttribute("msg", new Message("Invalid Details ! try with another", "error", "alert-danger"));
+            		HttpSession s = request.getSession();
+            		s.setAttribute("msg", new Message("Invalid Details ! try with another", "error", "alert-danger"));
 
-                response.sendRedirect("login_page.jsp");
-            } else {
+            		response.sendRedirect("login_page.jsp");
+            	} else {
                 //......
 //                login success
-            	EmailHelper.sendMail(userEmail);
                 HttpSession s = request.getSession();
                 s.setAttribute("currentUser", u);
-                response.sendRedirect("profile.jsp");
+                response.sendRedirect("login_page.jsp");
 
             }
 
-            out.println("</body>");
-            out.println("</html>");
+            }else {
+            	RequestDispatcher rd = request.getRequestDispatcher("password_reset.jsp?err=password and condirm password dont matched.");
+            	rd.include(request, response);
+            	
+            }
         }
     }
 

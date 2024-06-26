@@ -38,64 +38,175 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
        
        <style><%@ include file="css/post.css"%>"</style>
+       
+       <style>
+      .navbar-nav{
+    width: 100%;
+}
+
+@media(min-width:568px){
+    .end{
+        margin-left: auto;
+    }
+}
+
+@media(max-width:768px){
+    #post{
+        width: 100%;
+    }
+}
+#clicked{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: center;
+    width: 100%;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 13px; 
+}
+
+#profile{
+    background-color: unset;
+    
+} 
+
+#post{
+    margin: 10px;
+    padding: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    background-color: #ecb21f;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 13px;
+    width: 50%;
+}
+
+
+
+#nav-items li a,#profile{
+    text-decoration: none;
+    color: rgb(224, 219, 219);
+    background-color: white;
+}
+
+
+.comments{
+    margin-top: 5%;
+    margin-left: 20px;
+}
+
+.darker{
+    border: 1px solid #ecb21f;
+    background-color: black;
+    float: right;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 30px;
+    padding-top: 10px;
+}
+
+.comment{
+    border: 1px solid rgba(16, 46, 46, 1);
+    background-color: black;
+    float: left;
+    width:100%;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 30px;
+    padding-top: 10px;
+    
+}
+.comment h4,.comment span,.darker h4,.darker span{
+    display: inline;
+}
+
+.comment p,.comment span,.darker p,.darker span{
+    color: rgb(184, 183, 183);
+}
+
+h1,h4{
+    color: white;
+    font-weight: bold;
+}
+label{
+    color: rgb(212, 208, 208);
+}
+
+#align-form{
+    margin-top: 20px;
+}
+.form-group p a{
+    color: white;
+}
+
+#checkbx{
+    background-color: black;
+}
+
+#darker img{
+    margin-right: 15px;
+    position: static;
+}
+
+.form-group input,.form-group textarea{
+    background-color: black;
+    border: 1px solid rgba(16, 46, 46, 1);
+    border-radius: 12px;
+}
+
+form{
+    border: 1px solid rgba(16, 46, 46, 1);
+    padding: 20px;
+ }      
+ </style>
+ 
     </head>
     <body>
+    
+    
+    <nav class="navbar navbar-expand-lg navbar-dark" style=" background-image: linear-gradient(200deg,white);box-shadow:1px 1px 4px 1px solid black;">
+    <a style='color:purple;' class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Bloggy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<%     
- 			int gid = Integer.parseInt(request.getParameter("post_id"));
- 			Connection con = ConnectionProvider.getConnection();
- 			String q ="SELECT * from comment where poid=?";
- 			PreparedStatement ps = con.prepareStatement(q);	
- 			ps.setInt(1,gid);
-            ResultSet rs = ps.executeQuery();
-            
-            int uid=-1;
-            int comid;
-            String comment;
-            int count;
-            ArrayList<Comment> al = new ArrayList();
-            Comment c = new Comment();
-  			 while(rs.next()){
-            	
-            
-            	uid = rs.getInt("uid");
-            	comid = rs.getInt("comid");
-            	comment = rs.getString("comment");
-            	c.setUid(uid);
-            	c.setComId(comid);
-            	c.setComment(comment);
-            	al.add(c);
-            	
-            }System.out.println(al);
-            
-            
-            //System.out.println(al+"==========");
-            
-            String q1 ="SELECT * from user where id=?";
- 			PreparedStatement ps1 = con.prepareStatement(q1);	
- 			ps1.setInt(1,uid);
- 			ResultSet rs1 = ps1.executeQuery();
- 			
-            String name = "";
-       	 	String pic = "";
-       	 	int uuid = 0;
-       	 	ArrayList<User> al2 = new ArrayList();
-       	 	User u = new User();
-            
-       	 	while(rs1.next()){
-       	 		
-       	 		 uuid = rs1.getInt("id"); 
-       	 		 name = rs1.getString("name");
-            	 pic = rs1.getString("profile");
-            	 u.setId(uuid);
-            	 u.setName(name);
-            	 u.setProfile(pic);
-            	 al2.add(u);
-            	 
-          }System.out.println(al2);
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+           
+
+            <li class="nav-item dropdown">
+                <a style='color:purple;' class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-check-square-o"></span> Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a style='color:purple;' class="dropdown-item" href="#">Programming Language</a>
+                    <a style='color:purple;' class="dropdown-item" href="#">Project Implementation</a>
+                    <div class="dropdown-divider"></div>
+                    <a style='color:purple;' class="dropdown-item" href="#">Data Structure and <br/>algorithm</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a style='color:purple;' class="nav-link" href="profile.jsp"> <span class="	fa fa-address-card-o"></span>Home Profile</a>
+            </li>
+            <li class="nav-item">
+                <a style='color:purple;' class="nav-link" href="private_profile.jsp"> <span class="	fa fa-address-card-o"></span>Profile</a>
+            </li>
+            <li class="nav-item">
+                <a style='color:purple;' class="nav-link" href="LogoutServlet"> <span class="fa fa-user-plus "></span>Logout</a>
+            </li>
           
-            
-    %>
+        </ul>
+       
+    </div>
+</nav>
+    
 
 	
 
@@ -104,53 +215,7 @@
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v20.0" nonce="hHcVKcAu"></script>
         <!--navbar--> 
 
-        <nav class="navbar navbar-expand-lg navbar-dark primary-background">
-            <a class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span> Techlogy</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                   
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="	fa fa-check-square-o"></span> Categories
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Programming Language</a>
-                            <a class="dropdown-item" href="#">Project Implementation</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Data Structure</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> <span class="	fa fa-address-card-o"></span> Contact</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal" > <span class="	fa fa-asterisk"></span> Do Post</a>
-                    </li>
-
-
-
-                </ul>
-
-                <ul class="navbar-nav mr-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal"> <span class="fa fa-user-circle "></span> <%= user.getName()%> </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="LogoutServlet"> <span class="fa fa-user-plus "></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-
+        
 
         <!--end of navbar-->
 
@@ -177,7 +242,7 @@
 
                         <div class="card-body">
 
-                            <img class="card-img-top my-2" src="blogpics/<%= p.getpPic()%>" alt="Card image cap">
+                            <img class="card-img-top my-2" src="pics/<%= p.getpPic()%>" alt="Card image cap">
 
 
                             <div class="row my-3 row-user">
@@ -416,29 +481,62 @@
         <!--END add post modal-->
 
 
+<%     
+ 			int gid = Integer.parseInt(request.getParameter("post_id"));
+ 			Connection con = ConnectionProvider.getConnection();
+ 			String q ="SELECT uid from comment where poid=?";
+ 			PreparedStatement ps = con.prepareStatement(q);	
+ 			ps.setInt(1,gid);
+            ResultSet rs = ps.executeQuery();
+            
+            int uid=-1;
+            int count;
+            //ArrayList<User> al2 = new ArrayList<User>();
+       	 	Map<Integer, ArrayList<Comment>> m = new TreeMap();
+       	 	ArrayList<Comment> al = new ArrayList();
+         
+       	 	while(rs.next()){
+            	
+            	User u = new User();
+            	uid = rs.getInt("uid"); 
+            	u.setId(uid);
+           	  
+            	Comment c = new Comment();
+     			//uid = rs.getInt("uid");
+            	int comid;
+            	String comment;
+            	String q1 ="SELECT * from comment where uid=?";
+     			PreparedStatement ps1 = con.prepareStatement(q1);	
+     			ps1.setInt(1,uid);
+     			ResultSet rs1 = ps1.executeQuery();
+     			
+                /*String name = "";
+           	 	String pic = "";
+           	 	int uuid = 0;
+           	 	 */
+           	 	while(rs1.next()){
+           	 		
+           	 	comid = rs1.getInt("comid");
+            	comment = rs1.getString("comment");
+            	c.setUid(uid);
+            	c.setComId(comid);
+            	c.setComment(comment);
+            	al.add(c); 	 
+              }
+			m.put(uid, al);
+            
+       	 	}
+       	 	System.out.println(m);
+            
+                      
+            
+    %>
+
+
 
 	<!-- Comment -->
-		<div class="container" style="background:white;width:48.5%;height:100%;margin-top:-15px;border-radius:5px;">
+		<div class="container" style="background:white;width:48.5%;height:300%;margin-top:-15px;border-radius:5px;">
 		
-		<%for(User usr : al2) {%>
-		
-		<div class="row">
-				<div class="col-md-2" style="background:black;display:inline;height:10%;">
-					<div>
-							<a href="general_user.jsp?cuid=<%=usr.getId()%>" ><img class="rounded-circle mt-3" src="pics/<%=user.getProfile()%>" style="width:50%;margin-left:25%;" alt="Card image cap"/>
-							<p style="color:white;font-weight:bold;text-align:center;"><%=usr.getName()%></p>
-						</a>
-					</div>
-				</div>
-			
-			<%} %>
-			<%for(Comment com : al) {%>
-				<div class="col-md-10">
-					<div class="mt-2 mb-1"><textarea rows="3" cols="50" class="form-control" style="resize:none;" readonly><%=com.getComment()%></textarea></div>
-				</div>
-			<%} %>
-			</div>
-			<hr/>
 			<div class="row">
 				<form action="addCommnet" method="post">
 					<div class="col-md-12 mb-2 mt-4">
@@ -447,8 +545,26 @@
     						<button type="submit" class="btn btn-warning mt-2">add comment</button>
     				</div>
 				</form>
-			</div>
-		</div>
+			</div><hr color="black"/>
+		<h4 style="color:black;">Comments</h4>
+                
+		<%for(Map.Entry<Integer,ArrayList<Comment>> usr : m.entrySet()) {%>
+		
+		<div class="row">
+            <div class="col-sm-5 col-md-6 col-12 pb-4">
+                <div class="comment mt-0 text-justify " style="height:80%;width:200%;">
+                    <a href="general_user.jsp?cuid=<%=usr.getKey()%>"></a><img src="pics/<%=user.getProfile()%> alt="pro-pic" class="rounded-circle" width="40" height="40"></a>
+                    <span>- 20 October, 2018</span>
+                    <br>
+                    <%for(Comment com : usr.getValue()) {%>
+                    <p><%=com.getComment()%></p>
+              		<%} %>
+                </div>
+        </div>
+        </div>
+		<%}%>
+	</div>
+		
 
 
 

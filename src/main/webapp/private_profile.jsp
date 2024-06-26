@@ -68,6 +68,105 @@
 
 %>
  
+<nav class="navbar navbar-expand-lg navbar-dark" style=" background-image: linear-gradient(200deg,white);box-shadow:1px 1px 4px 1px solid black;">
+    <a style='color:purple;' class="navbar-brand" href="index.jsp"> <span class="fa fa-asterisk"></span>   Bloggy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+           
+
+            <li class="nav-item dropdown">
+                <a style='color:purple;' class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fa fa-check-square-o"></span> Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a style='color:purple;' class="dropdown-item" href="#">Programming Language</a>
+                    <a style='color:purple;' class="dropdown-item" href="#">Project Implementation</a>
+                    <div class="dropdown-divider"></div>
+                    <a style='color:purple;' class="dropdown-item" href="#">Data Structure and <br/>algorithm</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a style='color:purple;' class="nav-link" href="profile.jsp"> <span class="	fa fa-address-card-o"></span>Home Profile</a>
+            </li>
+             <li class="nav-item" >
+                        <a  style='color:purple;' class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal" > <span class="	fa fa-asterisk"></span> Do Post</a>
+                    </li>
+            <li class="nav-item">
+                <a style='color:purple;' class="nav-link" href="LogoutServlet"> <span class="fa fa-user-plus "></span>Logout</a>
+            </li>
+          
+        </ul>
+       
+    </div>
+</nav>
+
+
+ <!-- Modal -->
+        <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Provide the post details..</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="add-post-form" action="AddPostServlet" method="post" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <select class="form-control" name="cid">
+                                    <option selected disabled>---Select Category---</option>
+
+                                    <%
+                                        PostDao postd = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Category> list = postd.getAllCategories();
+                                        for (Category c : list) {
+                                    %>
+                                    <option value="<%= c.getCid()%>"><%= c.getName()%></option>
+
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <input name="pTitle" type="text" placeholder="Enter post Title" class="form-control"/>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea name="pContent" class="form-control" style="height: 200px;" placeholder="Enter your content"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="pCode" class="form-control" style="height: 200px;" placeholder="Enter your program (if any)"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Select your pic..</label>
+                                <br>
+                                <input type="file" name="pic"  >
+                            </div>
+
+                            <div class="container text-center">
+                                <button type="submit" class="btn btn-outline-primary">Post </button>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
 
 <div class="container rounded bg-white mt-5">
     	
@@ -195,7 +294,7 @@
 				 
 				 		<div class="card-body mr-0 ml-0 mb-0">
         					
-        					<a href="show_blog_page.jsp?post_id=<%=post.getPid()%>" title="see post by clicking it" id="img-l"><img src="blogpics/<%= post.getpPic() %>" class="card-img-top" style="height:86%;width:100%;margin:0;cursor:pointer;"/></a>
+        					<a href="show_blog_page.jsp?post_id=<%=post.getPid()%>" title="see post by clicking it" id="img-l"><img src="pics/<%= post.getpPic() %>" class="card-img-top" style="height:86%;width:100%;margin:0;cursor:pointer;"/></a>
         					<div class="d-flex justify-content-between align-items-end">
         						<p class="card-text mb-0" style="color:black;text-align:left; font-size:.9em;">posted on : <%=DateFormat.getDateTimeInstance().format(post.getpDate()) %></p>
         						<button onclick="getPostLinks(<%=post.getPid()%>)" id="btn-f" value="<%= post.getPid()%>" data-toggle="modal" data-target=".bd-example-modal-sm" show="true" style="background:none;border:none;cursor:pointer;margin-top:20px;" title="edit"><i class="fa fa-ellipsis-v"></i></button>
@@ -247,8 +346,52 @@
 	}
 </script>
 
+<script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+       
+              <!--now add post js-->
+        <script>
+            $(document).ready(function (e) {
+                //
+                $("#add-post-form").on("submit", function (event) {
+                    //this code gets called when form is submitted....
+                    event.preventDefault();
+                    console.log("you have clicked on submit..")
+                    let form = new FormData(this);
 
+                    //now requesting to server
+                    $.ajax({
+                        url: "AddPostServlet",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            //success ..
+                            console.log(data);
+                            if (data.trim() == 'done')
+                            {
+                                swal("Good job!", "saved successfully", "success");
+                            } else
+                            {
+                                swal("Error!!", "Something went wrong try again...", "error");
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //error..
+                            swal("Error!!", "Something went wrong try again...", "error");
+                        },
+                        processData: false,
+                        contentType: false
+                    })
+                })
+            })
+        </script>
 
+      
 
 
 

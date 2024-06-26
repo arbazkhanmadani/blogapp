@@ -50,7 +50,7 @@ public class UpdatePostServlet extends HttpServlet {
             p.setpCode(code);
             p.setpPic(imageName);
             //p.setpDate(Timestamp);
-            System.out.println(pid+"=="+title+"=="+content+"=="+code+"=="+part+"=="+imageName);
+            //System.out.println(pid+"=="+title+"=="+content+"=="+code+"=="+part+"=="+imageName);
             //update database....
             PostDao pd = new PostDao(ConnectionProvider.getConnection());
             HttpSession s = request.getSession();

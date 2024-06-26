@@ -31,7 +31,7 @@
 
     <div class="col-md-6 mt-2">
         <div class="card">
-            <img class="card-img-top" src="blogpics/<%= p.getpPic()%>" alt="Card image cap">
+            <img class="card-img-top" src="pics/<%= p.getpPic()%>" alt="Card image cap">
             <div class="card-body">
                 <b style='color:black;'><%= p.getpTitle()%></b>
                 <% String cont = p.getpContent().substring(0,  p.getpContent().length()/2); %>

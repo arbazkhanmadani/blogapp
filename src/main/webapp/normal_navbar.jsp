@@ -1,4 +1,19 @@
 
+<%@page import="com.tech.blog.entities.User,com.tech.blog.entities.*"%>
+<%@page import="com.tech.blog.dao.LikeDao"%>
+<%@page import="java.util.*, java.text.DateFormat, java.sql.*"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
+<%@page import="java.sql.*"%>
+<%@page errorPage="error_page.jsp"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*, com.tech.blog.helper.ConnectionProvider" %>
+<%
+   User user = (User) session.getAttribute("currentUser");
+    if (user != null) {
+       // response.sendRedirect("login_page.jsp");
+    }
+%>
 <style>
 
 nav a:hover{
@@ -36,6 +51,16 @@ nav a:hover{
             </li>
             <li class="nav-item">
                 <a style='color:purple;' class="nav-link" href="register_page.jsp"> <span class="fa fa-user-plus "></span> Sign up</a>
+            </li>
+            <li class="nav-item">
+            	<%
+   					User user1 = (User) session.getAttribute("currentUser");
+    				if (user1!= null) {
+    				%>
+    				  <a style='color:purple;' class="nav-link" href="private_profile.jsp"> <span class="fa fa-user-plus "></span>profile</a>
+            
+       			<%}%>
+            
             </li>
 
         </ul>
